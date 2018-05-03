@@ -101,20 +101,22 @@ const config = {
     ready: function(){}
 }
 
-new baiduMapMvvm(config,map) 
+new MapMvvm(config,map) 
 ```
-- ready: this = baiduMapMvvm instance
-- methods: in each method, this = baiduMapMvvm instance
-- listeners: in each listener, this = item in items
-- item.$ref: the instance of item.Constructor
-- item.$vm: baiduMapMvvm instance
 
 ### context
+
+- ready: this = MapMvvm instance
+- methods: in each method, this = MapMvvm instance
+- item.listeners: in each listener, this = item in items
+- item.init: this = item in items
+- item.$ref: the instance of item.Constructor
+- item.$vm: MapMvvm instance
 
 ```
 const config = {
     items: [{
-        Constructor: baidu.maps.Polyline,
+        Constructor: BMap.Polyline,
         data: {
             ...
         },
@@ -124,6 +126,9 @@ const config = {
             this.$vm.log(this)
           }
         },
+        init: function(){
+          this.$vm.log(this)
+        }
     }], 
     // methods
     methods: {
@@ -136,7 +141,7 @@ const config = {
         this.log('ready')
     }
 }
-const vm = new baiduMapMvvm(config,map) 
+const vm = new MapMvvm(config,map) 
 
 // call from outside
 vm.log('outside')
